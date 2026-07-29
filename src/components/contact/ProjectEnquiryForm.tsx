@@ -49,6 +49,7 @@ export function ProjectEnquiryForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
 
@@ -64,6 +65,7 @@ export function ProjectEnquiryForm() {
       return next;
     });
     setSuccessMessage("");
+    setSubmitError("");
   }
 
   function validateForm() {
@@ -90,7 +92,7 @@ export function ProjectEnquiryForm() {
     return nextErrors;
   }
 
-  function runPreviewSubmission() {
+  async function submitEnquiry() {
     const nextErrors = validateForm();
     setErrors(nextErrors);
 
@@ -100,22 +102,36 @@ export function ProjectEnquiryForm() {
     }
 
     setLoading(true);
+    setSubmitError("");
 
-    window.setTimeout(() => {
-      // TODO: Connect this form to an approved backend, CRM, or form service before production launch.
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      setValues(initialFormState);
+      setSuccessMessage("Thanks — your enquiry has been sent. We will respond by email soon.");
+    } catch {
+      setSubmitError("Something went wrong sending your enquiry. Please try again or email us directly.");
+    } finally {
       setLoading(false);
-      setSuccessMessage("Your enquiry preview is ready. Connect a form backend before production launch.");
-    }, 500);
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    runPreviewSubmission();
+    void submitEnquiry();
   }
 
   function handleSubmitClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    runPreviewSubmission();
+    void submitEnquiry();
   }
 
   return (
@@ -241,6 +257,14 @@ export function ProjectEnquiryForm() {
             className="nx-feedback-fade rounded-[var(--radius-md)] border border-[var(--tone-success-border)] bg-[var(--tone-success-bg)] p-4 text-sm text-[var(--status-success)]"
           >
             {successMessage}
+          </div>
+        ) : null}
+        {submitError ? (
+          <div
+            role="alert"
+            className="nx-feedback-fade rounded-[var(--radius-md)] border border-[var(--tone-error-border)] bg-[var(--tone-error-bg)] p-4 text-sm text-[var(--status-error)]"
+          >
+            {submitError}
           </div>
         ) : null}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
