@@ -1,0 +1,317 @@
+/**
+ * NEXORA ORBIT — Hero Scroll Lab (/hero-lab-scroll) prototype styles.
+ *
+ * Isolated, `hs-`-namespaced, token-driven. Loaded only by /hero-lab-scroll.
+ *
+ * Safety-critical default: `.hs-content-wrap` is fully visible with NO rules
+ * required — the only thing that can hide it is `[data-reveal="ready"]`,
+ * which JS adds on mount and deliberately skips entirely under reduced
+ * motion. So content never depends on JS, WebGL, or scrolling to be readable.
+ */
+
+.hs-root {
+  position: relative;
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans-ds);
+}
+
+/* ---- Lab header (matches /hero-lab's chrome, kept self-contained here) --- */
+.hs-labheader {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--surface-overlay);
+  backdrop-filter: blur(var(--blur-md));
+  padding: var(--space-3) var(--space-5);
+}
+.hs-labheader__brand {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.hs-labheader__brand span {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hs-labheader__title {
+  justify-self: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.hs-labheader__phase {
+  justify-self: end;
+  font-family: var(--font-mono-ds);
+  font-size: 11px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+}
+.hs-notice {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--tone-brand-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-2) var(--space-4);
+}
+
+/* ---- Cinematic (scroll-scrubbed) shell ------------------------------- */
+.hs-scroll-wrap {
+  position: relative;
+  height: 280vh;
+}
+.hs-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---- Fallback (static / reduced-motion / no-WebGL) shell -------------- */
+.hs-static-wrap {
+  position: relative;
+}
+.hs-static-inner {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 88vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hs-fallback-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--gradient-cover-atmosphere);
+}
+
+.hs-canvas-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hs-canvas-layer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.hs-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 68% center, transparent 35%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.hs-grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(150, 180, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 180, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transition: opacity 1600ms var(--ease-standard);
+}
+[data-reveal-state="in"] .hs-grid-overlay {
+  opacity: 1;
+}
+
+/* ---- Orbit rings behind the logo (plain CSS circles, not 3D) ---------- */
+.hs-ring {
+  position: absolute;
+  z-index: 1;
+  top: 48%;
+  left: 74%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2000ms var(--ease-standard);
+}
+[data-reveal-state="in"] .hs-ring {
+  opacity: 1;
+}
+.hs-ring--sm {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(150, 180, 255, 0.12);
+}
+.hs-ring--lg {
+  width: 340px;
+  height: 340px;
+  border: 1px solid rgba(150, 180, 255, 0.07);
+  transition-duration: 2300ms;
+}
+
+/* ---- Content (safety-critical default: visible, no rules needed) ----- */
+.hs-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  padding: 0 var(--space-5);
+}
+.hs-content-wrap {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  height: 100%;
+  align-content: center;
+}
+
+.hs-eyebrow {
+  color: var(--text-accent);
+}
+.hs-h1 {
+  margin-top: var(--space-5);
+  color: var(--text-primary);
+  max-width: 640px;
+}
+.hs-sub {
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  max-width: 540px;
+}
+.hs-trust {
+  margin-top: var(--space-6);
+  color: var(--text-muted);
+}
+
+.hs-cta-row {
+  margin-top: var(--space-7);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.hs-cta {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+.hs-cta:hover {
+  transform: translateY(-1px);
+}
+.hs-cta:active {
+  transform: scale(0.99);
+}
+.hs-cta--primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: var(--glow-blue-soft);
+}
+.hs-cta--primary:hover {
+  box-shadow: var(--glow-blue-strong);
+}
+.hs-cta--glass {
+  border-color: var(--border-default);
+  background: var(--surface-glass);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-dark-panel);
+  backdrop-filter: blur(var(--blur-md));
+}
+.hs-cta--glass:hover {
+  border-color: var(--border-brand);
+}
+
+/* ---- Skip button + scroll hint (decorative chrome, fade in with reveal) */
+.hs-skip {
+  position: absolute;
+  z-index: 3;
+  top: var(--space-5);
+  right: var(--space-5);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 900ms var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+[data-reveal-state="in"] .hs-skip {
+  opacity: 1;
+}
+.hs-skip:hover {
+  border-color: var(--border-brand);
+  color: var(--text-primary);
+}
+
+.hs-scrollhint {
+  position: absolute;
+  z-index: 3;
+  left: var(--space-5);
+  bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: opacity 1400ms var(--ease-standard) 300ms;
+}
+[data-reveal-state="in"] .hs-scrollhint {
+  opacity: 1;
+}
+.hs-scrollhint__line {
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-brand), transparent);
+}
+
+/* ---- Reduced motion: skip is never rendered when not cinematic; content -
+   already has no reveal-gate since [data-reveal] is never set. Only the
+   ambient/chrome bits above need an explicit stop, in case a user later
+   toggles the OS setting mid-session with `cinematic` already computed. --- */
+@media (prefers-reduced-motion: reduce) {
+  .hs-grid-overlay,
+  .hs-skip,
+  .hs-scrollhint {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hs-scroll-wrap {
+    height: 220vh;
+  }
+  .hs-scrollhint {
+    display: none;
+  }
+}

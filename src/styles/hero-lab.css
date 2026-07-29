@@ -1,0 +1,921 @@
+/**
+ * NEXORA ORBIT — Hero Lab (Phase 19B) prototype styles.
+ *
+ * Isolated, namespaced (`hl-`), token-driven cinematic hero built with CSS/SVG
+ * only (no WebGL yet). Loaded exclusively by /hero-lab. Motion is gated by:
+ *   - [data-hl-motion="off"]      (control toggle)
+ *   - [data-hl-reduced="true"]    (OS reduced-motion OR control simulation)
+ *   - prefers-reduced-motion      (OS, always authoritative)
+ *   - [data-hl-inview="false"]    (offscreen — ambient loops paused)
+ *
+ * Content is authored in its FINAL (visible) state; reveal keyframes bring it
+ * in from hidden. So if animations are removed, everything is simply visible.
+ */
+
+.hl-root {
+  --hl-px: 0;
+  --hl-py: 0;
+  --hl-scroll: 0;
+  --hl-meter: 0%;
+  --hl-forward: 0px;
+  --hl-depth-scale: 1;
+  --hl-atmosphere: 0.7;
+  --hl-ecosystem: 0;
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: clip;
+  overflow-y: visible;
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans-ds);
+}
+
+/* ---- Lab header ------------------------------------------------------- */
+.hl-labheader {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--surface-overlay);
+  backdrop-filter: blur(var(--blur-md));
+  padding: var(--space-3) var(--space-5);
+}
+.hl-labheader__brand {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.hl-labheader__brand span {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hl-labheader__title {
+  justify-self: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.hl-labheader__phase {
+  justify-self: end;
+  font-family: var(--font-mono-ds);
+  font-size: 11px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+}
+.hl-notice {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--tone-brand-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-2) var(--space-4);
+}
+
+/* ---- Hero shell ------------------------------------------------------- */
+.hl-story {
+  position: relative;
+  min-height: 620dvh;
+}
+.hl-hero {
+  position: sticky;
+  top: 0;
+  display: grid;
+  align-items: center;
+  min-height: 100dvh;
+  padding: clamp(48px, 9vh, 128px) var(--space-5);
+  isolation: isolate;
+  overflow: hidden;
+}
+.hl-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-10);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .hl-hero__inner {
+    grid-template-columns: 1.02fr 0.98fr;
+    align-items: center;
+    gap: var(--space-9);
+  }
+}
+
+/* ---- Scene (decorative, aria-hidden) --------------------------------- */
+.hl-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate3d(0, var(--hl-forward), 0) scale(var(--hl-depth-scale));
+  transform-origin: center center;
+  opacity: var(--hl-atmosphere);
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+/* WebGL canvas fills the scene layer (parallax handled by the 3D camera). */
+.hl-scene--3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.hl-parallax {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(
+    calc(var(--hl-px) * var(--hl-depth, 0px)),
+    calc(var(--hl-py) * var(--hl-depth, 0px)),
+    0
+  );
+  will-change: transform;
+}
+
+/* Atmospheric blooms */
+.hl-bloom {
+  --hl-depth: -14px;
+  animation: hl-bloom-in var(--duration-cinematic) var(--ease-standard) 200ms both;
+}
+.hl-bloom::before,
+.hl-bloom::after {
+  content: "";
+  position: absolute;
+  border-radius: var(--radius-full);
+  filter: blur(var(--blur-xl));
+}
+.hl-bloom::before {
+  left: 8%;
+  top: 6%;
+  width: 46%;
+  height: 52%;
+  background: radial-gradient(circle, rgba(37, 99, 255, 0.22), transparent 62%);
+  animation: hl-glow-drift 11s var(--ease-standard) 1400ms infinite alternate;
+}
+.hl-bloom::after {
+  right: 4%;
+  top: 12%;
+  width: 40%;
+  height: 46%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18), transparent 62%);
+  animation: hl-glow-drift 13s var(--ease-standard) 1800ms infinite alternate-reverse;
+}
+.hl-fog {
+  --hl-depth: -8px;
+  background:
+    radial-gradient(circle at 50% 120%, rgba(34, 211, 238, 0.06), transparent 40%),
+    radial-gradient(circle at 20% 0%, rgba(37, 99, 255, 0.08), transparent 44%);
+}
+
+/* Signal connection lines (SVG) */
+.hl-lines {
+  --hl-depth: 10px;
+}
+.hl-lines svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hl-line {
+  fill: none;
+  stroke: var(--border-brand);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  vector-effect: non-scaling-stroke;
+  animation: hl-line-trace 1200ms var(--ease-precise) 500ms both;
+}
+.hl-line--soft {
+  stroke: var(--border-default);
+  animation:
+    hl-line-trace 1200ms var(--ease-precise) 640ms both,
+    hl-line-shimmer 6s var(--ease-standard) 2200ms infinite;
+}
+
+/* Nodes */
+.hl-nodes {
+  --hl-depth: 16px;
+}
+.hl-node {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-full);
+  background: var(--accent-cyan);
+  box-shadow: var(--glow-cyan-data);
+  opacity: 0;
+  animation:
+    hl-node-in var(--duration-slow) var(--ease-enter) var(--hl-node-delay, 600ms) both,
+    hl-node-breathe 5.2s var(--ease-standard) 1600ms infinite;
+}
+
+/* Glass panels */
+.hl-panels {
+  --hl-depth: 22px;
+}
+.hl-panel {
+  position: absolute;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  /* Near-opaque fill instead of backdrop-filter: these panels translate with
+     the parallax layer, and animating a backdrop-filter each frame is costly. */
+  background: rgba(8, 13, 31, 0.86);
+  box-shadow: var(--shadow-dark-panel);
+  padding: var(--space-4);
+  opacity: 0;
+  animation: hl-panel-in var(--duration-cinematic) var(--ease-enter) var(--hl-panel-delay, 400ms) both;
+}
+.hl-panel__inner {
+  display: grid;
+  gap: 10px;
+  animation: hl-float var(--hl-float-dur, 7s) var(--ease-standard) 1600ms infinite alternate;
+}
+.hl-panel--brand {
+  border-color: var(--border-brand);
+  box-shadow: var(--glow-blue-soft);
+}
+.hl-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+}
+.hl-bar--accent {
+  background: var(--accent-cyan);
+  box-shadow: var(--glow-cyan-data);
+}
+.hl-bar--brand {
+  background: var(--gradient-primary);
+}
+.hl-panel__label {
+  font-family: var(--font-mono-ds);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.hl-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.hl-tile {
+  height: 26px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-panel);
+}
+
+/* Particles */
+.hl-particles {
+  --hl-depth: 6px;
+}
+.hl-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--brand-blue-400);
+  opacity: 0;
+  animation:
+    hl-particle-in 900ms var(--ease-standard) var(--hl-p-delay, 300ms) both,
+    hl-drift var(--hl-p-dur, 14s) ease-in-out var(--hl-p-delay, 300ms) infinite alternate;
+}
+.hl-particle--cyan {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.5);
+}
+.hl-particle--violet {
+  background: var(--accent-violet);
+}
+
+/* ---- Hero content ---------------------------------------------------- */
+.hl-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  transition:
+    opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard),
+    filter var(--duration-slow) var(--ease-standard);
+}
+/* Contrast scrim behind copy — guarantees legibility over the scene. */
+.hl-content::before {
+  content: "";
+  position: absolute;
+  inset: -6% -8%;
+  z-index: -1;
+  background: radial-gradient(120% 100% at 20% 40%, rgba(5, 8, 22, 0.55), transparent 70%);
+  pointer-events: none;
+}
+.hl-reveal {
+  animation: hl-fade-lift var(--duration-cinematic) var(--ease-enter) var(--hl-delay, 0ms) both;
+}
+.hl-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-brand);
+  background: var(--tone-brand-bg);
+  color: var(--text-accent);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.hl-h1 {
+  margin: var(--space-5) 0 0;
+  font-size: clamp(34px, 6vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.hl-h1 > span {
+  display: block;
+}
+.hl-h1 .hl-accent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hl-headline-line {
+  animation: hl-line-reveal var(--duration-cinematic) var(--ease-enter) var(--hl-delay, 0ms) both;
+}
+.hl-sub {
+  margin-top: var(--space-5);
+  max-width: 34rem;
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.hl-ctas {
+  margin-top: var(--space-7);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.hl-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+  overflow: hidden;
+}
+.hl-cta:hover {
+  transform: translateY(-1px);
+}
+.hl-cta:active {
+  transform: scale(0.99);
+}
+.hl-cta--primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: var(--glow-blue-soft);
+}
+.hl-cta--primary:hover {
+  box-shadow: var(--glow-blue-strong);
+}
+/* CTA edge energy sweep on hover */
+.hl-cta--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.85), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+}
+.hl-cta--primary:hover::after {
+  animation: hl-edge-sweep 640ms var(--ease-precise) both;
+}
+.hl-cta--glass {
+  border-color: var(--border-default);
+  background: var(--surface-glass);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-dark-panel);
+  backdrop-filter: blur(var(--blur-md));
+}
+.hl-cta--glass:hover {
+  border-color: var(--border-brand);
+}
+.hl-focus {
+  outline: var(--focus-ring-width) solid transparent;
+  outline-offset: var(--focus-ring-offset);
+}
+.hl-focus:focus-visible {
+  outline-color: var(--focus-ring-color);
+  box-shadow: 0 0 0 var(--focus-ring-spread) var(--focus-ring-halo);
+}
+.hl-trust {
+  margin-top: var(--space-6);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+[data-hl-story="ready"][data-hl-act="0"] .hl-content,
+[data-hl-story="ready"][data-hl-act="1"] .hl-content {
+  opacity: 0.28;
+  transform: translate3d(0, 18px, 0);
+  filter: blur(2px);
+}
+[data-hl-story="ready"][data-hl-act="2"] .hl-content {
+  opacity: 0.56;
+  transform: translate3d(0, 8px, 0);
+  filter: blur(1px);
+}
+[data-hl-story="ready"][data-hl-act="3"] .hl-content,
+[data-hl-story="ready"][data-hl-act="4"] .hl-content,
+[data-hl-story="ready"][data-hl-act="5"] .hl-content {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: none;
+}
+
+/* ---- Scroll storyboard overlay --------------------------------------- */
+.hl-storyboard {
+  position: absolute;
+  z-index: 4;
+  top: clamp(120px, 16vh, 180px);
+  right: clamp(18px, 3vw, 44px);
+  width: min(310px, 26vw);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: rgba(5, 8, 22, 0.68);
+  box-shadow: var(--shadow-dark-panel);
+  backdrop-filter: blur(var(--blur-lg));
+  padding: var(--space-4);
+  pointer-events: none;
+}
+.hl-storyboard__eyebrow {
+  font-family: var(--font-mono-ds);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+.hl-storyboard__list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.hl-storyboard__item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  opacity: 0.32;
+  transform: translate3d(8px, 0, 0);
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+.hl-storyboard__index {
+  font-family: var(--font-mono-ds);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.hl-storyboard__copy {
+  display: grid;
+  gap: 4px;
+}
+.hl-storyboard__copy strong {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.hl-storyboard__copy span {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.hl-storyboard__meter {
+  position: relative;
+  height: 2px;
+  margin-top: var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+.hl-storyboard__meter span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--hl-meter);
+  border-radius: inherit;
+  background: var(--gradient-primary);
+  box-shadow: var(--glow-blue-soft);
+}
+[data-hl-act="0"] .hl-storyboard__item[data-step="0"],
+[data-hl-act="1"] .hl-storyboard__item[data-step="1"],
+[data-hl-act="2"] .hl-storyboard__item[data-step="2"],
+[data-hl-act="3"] .hl-storyboard__item[data-step="3"],
+[data-hl-act="4"] .hl-storyboard__item[data-step="4"],
+[data-hl-act="5"] .hl-storyboard__item[data-step="5"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+[data-hl-act="0"] .hl-storyboard__item[data-step="0"] .hl-storyboard__index,
+[data-hl-act="1"] .hl-storyboard__item[data-step="1"] .hl-storyboard__index,
+[data-hl-act="2"] .hl-storyboard__item[data-step="2"] .hl-storyboard__index,
+[data-hl-act="3"] .hl-storyboard__item[data-step="3"] .hl-storyboard__index,
+[data-hl-act="4"] .hl-storyboard__item[data-step="4"] .hl-storyboard__index,
+[data-hl-act="5"] .hl-storyboard__item[data-step="5"] .hl-storyboard__index {
+  color: var(--text-accent);
+}
+
+.hl-scroll-cue {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono-ds);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: calc(1 - var(--hl-scroll));
+  pointer-events: none;
+}
+
+/* ---- Scroll bridge (services handoff) -------------------------------- */
+.hl-bridge {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border-subtle);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, calc(0.14 + var(--hl-ecosystem) * 0.1)), transparent 40%),
+    linear-gradient(180deg, rgba(8, 13, 31, 0.2), rgba(8, 13, 31, 0.82));
+  padding: clamp(56px, 12vh, 128px) var(--space-5);
+}
+.hl-bridge__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-8);
+}
+.hl-bridge__title {
+  max-width: 40rem;
+  font-size: clamp(24px, 3.4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 650;
+  color: var(--text-primary);
+}
+.hl-bridge__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+@media (min-width: 768px) {
+  .hl-bridge__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.hl-chip {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+  padding: var(--space-5);
+  display: grid;
+  gap: 10px;
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+.hl-chip:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-brand);
+  box-shadow: var(--glow-blue-soft);
+}
+.hl-chip__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent-cyan);
+  box-shadow: var(--glow-cyan-data);
+}
+.hl-chip__name {
+  font-size: 18px;
+  font-weight: 650;
+  color: var(--text-primary);
+}
+.hl-chip__copy {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* ---- Controls panel -------------------------------------------------- */
+.hl-controls {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  width: 216px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-overlay);
+  backdrop-filter: blur(var(--blur-lg));
+  box-shadow: var(--shadow-dark-panel);
+  padding: var(--space-3);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.hl-controls__title {
+  font-family: var(--font-mono-ds);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+.hl-controls__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+}
+.hl-controls__seg {
+  display: inline-flex;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.hl-controls__seg button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+.hl-controls__seg button[aria-pressed="true"] {
+  background: var(--tone-brand-bg);
+  color: var(--text-accent);
+}
+.hl-controls__note {
+  margin-top: var(--space-2);
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ===================================================================== */
+/* Keyframes                                                             */
+/* ===================================================================== */
+@keyframes hl-fade-lift {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes hl-line-reveal {
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes hl-bloom-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes hl-panel-in {
+  from { opacity: 0; transform: translate3d(0, 30px, 0) scale(0.98); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes hl-particle-in {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+@keyframes hl-node-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes hl-line-trace {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 0.5; }
+}
+@keyframes hl-line-shimmer {
+  0%, 100% { opacity: 0.28; }
+  50% { opacity: 0.6; }
+}
+@keyframes hl-node-breathe {
+  /* Breathe through light (opacity), not scale — avoids re-rasterizing the
+     node's glow (box-shadow) every frame, and matches the brand direction. */
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes hl-float {
+  from { transform: translate3d(0, 5px, 0); }
+  to { transform: translate3d(0, -5px, 0); }
+}
+@keyframes hl-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--hl-dx, 8px), var(--hl-dy, -10px), 0); }
+}
+@keyframes hl-glow-drift {
+  /* Translate + opacity only (no scale) so the large blurred bloom texture is
+     not re-rasterized each frame — the GPU just re-composites it. */
+  from { opacity: 0.55; transform: translate3d(-6px, 3px, 0); }
+  to { opacity: 0.85; transform: translate3d(8px, -6px, 0); }
+}
+@keyframes hl-edge-sweep {
+  from { opacity: 0; transform: translateX(-40%); }
+  40% { opacity: 1; }
+  to { opacity: 0; transform: translateX(40%); }
+}
+
+/* ===================================================================== */
+/* Offscreen pause — ambient loops only                                  */
+/* ===================================================================== */
+[data-hl-inview="false"] .hl-bloom::before,
+[data-hl-inview="false"] .hl-bloom::after,
+[data-hl-inview="false"] .hl-node,
+[data-hl-inview="false"] .hl-panel__inner,
+[data-hl-inview="false"] .hl-particle,
+[data-hl-inview="false"] .hl-line--soft {
+  animation-play-state: paused;
+}
+
+/* ===================================================================== */
+/* Motion OFF (control) and Reduced (control OR OS) — static composition */
+/* ===================================================================== */
+[data-hl-motion="off"] .hl-scene *,
+[data-hl-reduced="true"] .hl-scene *,
+/* `*` does not match pseudo-elements — disable their loops explicitly. */
+[data-hl-motion="off"] .hl-bloom::before,
+[data-hl-motion="off"] .hl-bloom::after,
+[data-hl-motion="off"] .hl-cta--primary::after,
+[data-hl-reduced="true"] .hl-bloom::before,
+[data-hl-reduced="true"] .hl-bloom::after,
+[data-hl-reduced="true"] .hl-cta--primary::after {
+  animation: none !important;
+}
+[data-hl-motion="off"] .hl-parallax,
+[data-hl-reduced="true"] .hl-parallax {
+  transform: none !important;
+}
+[data-hl-motion="off"] .hl-scene,
+[data-hl-reduced="true"] .hl-scene {
+  transform: none !important;
+  opacity: 1 !important;
+}
+[data-hl-motion="off"] .hl-story,
+[data-hl-reduced="true"] .hl-story {
+  min-height: auto;
+}
+[data-hl-motion="off"] .hl-hero,
+[data-hl-reduced="true"] .hl-hero {
+  position: relative;
+}
+/* Keep the scene visible in its resolved state when motion is off. */
+[data-hl-motion="off"] .hl-node,
+[data-hl-reduced="true"] .hl-node,
+[data-hl-motion="off"] .hl-panel,
+[data-hl-reduced="true"] .hl-panel,
+[data-hl-motion="off"] .hl-particle,
+[data-hl-reduced="true"] .hl-particle,
+[data-hl-motion="off"] .hl-bloom,
+[data-hl-reduced="true"] .hl-bloom {
+  opacity: 1;
+}
+[data-hl-motion="off"] .hl-line,
+[data-hl-reduced="true"] .hl-line,
+[data-hl-motion="off"] .hl-line--soft,
+[data-hl-reduced="true"] .hl-line--soft {
+  stroke-dashoffset: 0;
+  opacity: 0.4;
+}
+
+/* Motion-off / reduced: content is simply, statically visible — immune to a
+   frozen animation clock, so it is readable even if animation never runs. */
+[data-hl-motion="off"] .hl-reveal,
+[data-hl-motion="off"] .hl-headline-line,
+[data-hl-motion="off"] .hl-content,
+[data-hl-reduced="true"] .hl-reveal,
+[data-hl-reduced="true"] .hl-headline-line,
+[data-hl-reduced="true"] .hl-content {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Particle levels */
+[data-hl-particles="low"] .hl-particle:nth-child(n + 9) {
+  display: none;
+}
+
+/* Scene modes: fallback keeps only the static glow (no panels/nodes/particles). */
+[data-hl-scene="fallback"] .hl-panels,
+[data-hl-scene="fallback"] .hl-nodes,
+[data-hl-scene="fallback"] .hl-particles,
+[data-hl-scene="fallback"] .hl-lines {
+  display: none;
+}
+
+/* ===================================================================== */
+/* OS reduced-motion — authoritative                                     */
+/* ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hl-scene *,
+  .hl-bloom::before,
+  .hl-bloom::after,
+  .hl-cta--primary::after {
+    animation: none !important;
+  }
+  .hl-parallax {
+    transform: none !important;
+  }
+  .hl-node,
+  .hl-panel,
+  .hl-particle,
+  .hl-bloom {
+    opacity: 1;
+  }
+  .hl-line,
+  .hl-line--soft {
+    stroke-dashoffset: 0;
+    opacity: 0.4;
+  }
+  .hl-reveal,
+  .hl-headline-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ===================================================================== */
+/* Mobile — content first, simplified scene                              */
+/* ===================================================================== */
+@media (max-width: 767px) {
+  .hl-parallax {
+    transform: none !important;
+  }
+  .hl-story {
+    min-height: auto;
+  }
+  .hl-hero {
+    position: relative;
+    min-height: auto;
+  }
+  .hl-storyboard {
+    position: relative;
+    inset: auto;
+    width: auto;
+    margin: var(--space-6) 0 0;
+    order: 3;
+    pointer-events: auto;
+  }
+  .hl-scroll-cue {
+    display: none;
+  }
+  [data-hl-act] .hl-content {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .hl-particle:nth-child(n + 7) {
+    display: none;
+  }
+  .hl-panels {
+    opacity: 0.7;
+  }
+  .hl-panel__inner {
+    animation: none;
+  }
+}

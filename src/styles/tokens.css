@@ -1,0 +1,203 @@
+/*
+ * NEXORA ORBIT design tokens.
+ *
+ * :root stores primitive, theme-agnostic scales.
+ * [data-theme="dark"] and [data-theme="light"] store semantic roles.
+ * Components should consume semantic roles first.
+ */
+
+:root {
+  --brand-navy-950: #050816;
+  --brand-navy-900: #080d1f;
+  --brand-blue-600: #2563ff;
+  --brand-blue-500: #3b82ff;
+  --brand-blue-400: #60a5fa;
+  --brand-purple-600: #7c3aed;
+  --brand-purple-500: #8b5cf6;
+
+  --ink-950: #030712;
+  --ink-900: #0b1020;
+  --slate-800: #1e293b;
+  --slate-600: #475569;
+  --slate-400: #94a3b8;
+  --slate-200: #e2e8f0;
+  --slate-50: #f8fafc;
+  --white: #ffffff;
+
+  --accent-cyan: #22d3ee;
+  --accent-indigo: #6366f1;
+  --accent-violet: #a855f7;
+  --accent-teal: #14b8a6;
+  --accent-silver: #cbd5e1;
+
+  --status-success: #22c55e;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+  --status-info: #22d3ee;
+
+  --tone-brand-bg: rgba(37, 99, 255, 0.14);
+  --tone-success-bg: rgba(34, 197, 94, 0.12);
+  --tone-warning-bg: rgba(245, 158, 11, 0.12);
+  --tone-error-bg: rgba(239, 68, 68, 0.12);
+  --tone-info-bg: rgba(34, 211, 238, 0.12);
+  --tone-success-border: rgba(34, 197, 94, 0.35);
+  --tone-warning-border: rgba(245, 158, 11, 0.38);
+  --tone-error-border: rgba(239, 68, 68, 0.38);
+  --tone-info-border: rgba(34, 211, 238, 0.36);
+
+  --gradient-primary: linear-gradient(135deg, #2563ff 0%, #7c3aed 52%, #a855f7 100%);
+  --gradient-background-deep: radial-gradient(
+      circle at 20% 0%,
+      rgba(37, 99, 255, 0.22),
+      transparent 34%
+    ),
+    radial-gradient(circle at 80% 12%, rgba(124, 58, 237, 0.18), transparent 30%),
+    #050816;
+  --gradient-glass-reflection: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.04)
+  );
+  --gradient-cover-atmosphere: radial-gradient(
+      circle at 18% 12%,
+      rgba(37, 99, 255, 0.24),
+      transparent 32%
+    ),
+    radial-gradient(circle at 82% 4%, rgba(124, 58, 237, 0.2), transparent 30%),
+    radial-gradient(circle at 50% 110%, rgba(34, 211, 238, 0.08), transparent 34%),
+    var(--brand-navy-950);
+
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+  --space-13: 128px;
+  --space-14: 160px;
+
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 999px;
+
+  --container-xs: 640px;
+  --container-sm: 768px;
+  --container-md: 960px;
+  --container-lg: 1120px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+  --ds-header-height: 64px;
+  --ds-shell-offset: 128px;
+
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+  --blur-xl: 40px;
+
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --shadow-2: 0 8px 24px rgba(15, 23, 42, 0.1);
+  --shadow-3: 0 18px 48px rgba(15, 23, 42, 0.16);
+  --shadow-4: 0 32px 80px rgba(2, 6, 23, 0.28);
+  --shadow-dark-panel: 0 24px 80px rgba(0, 0, 0, 0.42), 0 0 48px rgba(37, 99, 255, 0.08);
+
+  --glow-blue-soft: 0 0 48px rgba(37, 99, 255, 0.22);
+  --glow-blue-strong: 0 0 72px rgba(37, 99, 255, 0.34);
+  --glow-purple-soft: 0 0 52px rgba(124, 58, 237, 0.22);
+  --glow-purple-strong: 0 0 86px rgba(124, 58, 237, 0.3);
+  --glow-cyan-data: 0 0 36px rgba(34, 211, 238, 0.2);
+
+  --duration-instant: 80ms;
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 360ms;
+  --duration-cinematic: 700ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --font-sans-ds: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-mono-ds: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    monospace;
+
+  --focus-ring-color: var(--brand-blue-400);
+  --focus-ring-halo: rgba(96, 165, 250, 0.2);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-spread: 4px;
+  --selection-background: var(--accent-cyan);
+  --selection-text: var(--white);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface-base: #050816;
+  --surface-raised: #080d1f;
+  --surface-panel: rgba(255, 255, 255, 0.045);
+  --surface-glass: rgba(255, 255, 255, 0.075);
+  --surface-overlay: rgba(3, 7, 18, 0.72);
+
+  --text-primary: rgba(255, 255, 255, 0.96);
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #030712;
+  --text-accent: var(--brand-blue-400);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --border-brand: rgba(96, 165, 250, 0.36);
+
+  --app-background: var(--gradient-background-deep);
+  --focus-ring-color: var(--brand-blue-400);
+  --focus-ring-halo: rgba(96, 165, 250, 0.22);
+  --selection-background: rgba(34, 211, 238, 0.28);
+  --selection-text: var(--white);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-base: #ffffff;
+  --surface-raised: #f8fafc;
+  --surface-panel: #f1f5f9;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --surface-overlay: rgba(255, 255, 255, 0.82);
+
+  --text-primary: #030712;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --text-accent: var(--brand-blue-600);
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-default: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.18);
+  --border-brand: rgba(37, 99, 255, 0.24);
+
+  --app-background: radial-gradient(
+      circle at 18% -4%,
+      rgba(37, 99, 255, 0.08),
+      transparent 40%
+    ),
+    #ffffff;
+  --focus-ring-color: var(--brand-blue-600);
+  --focus-ring-halo: rgba(37, 99, 255, 0.18);
+  --selection-background: rgba(37, 99, 255, 0.18);
+  --selection-text: var(--ink-950);
+}

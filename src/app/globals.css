@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/typography.css";
+@import "../styles/effects.css";
 
 :root {
   --background: #ffffff;
@@ -8,8 +11,31 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --color-surface-base: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-panel: var(--surface-panel);
+  --color-surface-glass: var(--surface-glass);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-accent: var(--text-accent);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-brand: var(--border-brand);
+  --color-brand-blue: var(--brand-blue-600);
+  --color-brand-purple: var(--brand-purple-600);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-error: var(--status-error);
+  --radius-ds-sm: var(--radius-sm);
+  --radius-ds-md: var(--radius-md);
+  --radius-ds-lg: var(--radius-lg);
+  --radius-ds-xl: var(--radius-xl);
+  --shadow-ds-panel: var(--shadow-2);
+  --shadow-ds-hero: var(--shadow-4);
+  --font-sans: var(--font-sans-ds);
+  --font-mono: var(--font-mono-ds);
 }
 
 body {
@@ -23,6 +49,6 @@ html {
 }
 
 ::selection {
-  background: #38bdf8;
-  color: #ffffff;
+  background: var(--selection-background);
+  color: var(--selection-text);
 }

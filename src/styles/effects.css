@@ -1,0 +1,448 @@
+.ds-focus-ring {
+  outline: var(--focus-ring-width) solid transparent;
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-focus-ring:focus-visible {
+  outline-color: var(--focus-ring-color);
+  box-shadow: 0 0 0 var(--focus-ring-spread) var(--focus-ring-halo);
+}
+
+.ds-surface {
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.ds-glass {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-dark-panel);
+  backdrop-filter: blur(var(--blur-lg)) saturate(140%);
+}
+
+.ds-glass::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass-reflection);
+  opacity: 0.54;
+}
+
+.ds-glow-blue {
+  box-shadow: var(--glow-blue-soft);
+}
+
+.ds-glow-purple {
+  box-shadow: var(--glow-purple-soft);
+}
+
+.ds-cover-atmosphere {
+  background: var(--gradient-cover-atmosphere);
+}
+
+.ds-section-band {
+  border: 1px solid var(--border-subtle);
+  background:
+    linear-gradient(180deg, var(--surface-panel), transparent),
+    var(--surface-base);
+}
+
+.motion-runtime-ready [data-motion="section"] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity var(--duration-slow) var(--ease-enter),
+    transform var(--duration-slow) var(--ease-enter);
+  will-change: opacity, transform;
+}
+
+.motion-runtime-ready [data-motion="section"][data-motion-state="in"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.motion-runtime-ready [data-motion-child="heading"] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity var(--duration-cinematic) var(--ease-enter) 60ms,
+    transform var(--duration-cinematic) var(--ease-enter) 60ms;
+}
+
+.motion-runtime-ready [data-motion-state="in"] [data-motion-child="heading"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/*
+ * Hierarchy reveal: eyebrow leads, heading follows (60ms, above), body text
+ * settles last (130ms). Auto-tagged by MotionRuntime from the stable
+ * `.ds-eyebrow` / `.ds-body-*` classes already used by SectionHeader — no
+ * markup changes required. Layers on top of the section's own fade so the
+ * story reads eyebrow -> heading -> body -> visual/cards (cards already have
+ * their own stagger below).
+ */
+.motion-runtime-ready [data-motion-child="eyebrow"] {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity var(--duration-base) var(--ease-enter),
+    transform var(--duration-base) var(--ease-enter);
+}
+
+.motion-runtime-ready [data-motion-state="in"] [data-motion-child="eyebrow"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.motion-runtime-ready [data-motion-child="body"] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity var(--duration-slow) var(--ease-enter) 130ms,
+    transform var(--duration-slow) var(--ease-enter) 130ms;
+}
+
+.motion-runtime-ready [data-motion-state="in"] [data-motion-child="body"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.motion-runtime-ready [data-motion-card] {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0) scale(0.985);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    opacity var(--duration-slow) var(--ease-enter),
+    transform var(--duration-slow) var(--ease-enter);
+  transition-delay: calc(var(--motion-index, 0) * 70ms);
+  will-change: opacity, transform;
+}
+
+.motion-runtime-ready [data-motion-card][data-motion-state="in"],
+.motion-runtime-ready [data-motion-state="in"] [data-motion-card] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+.nx-hero [data-hero-step],
+.nx-hero-visual,
+.nx-hero-bloom {
+  animation-fill-mode: both;
+}
+
+.nx-hero [data-hero-step] {
+  animation: nx-hero-line-reveal var(--duration-cinematic) var(--ease-enter) var(--hero-delay, 0ms) both;
+}
+
+.nx-hero-bloom {
+  animation: nx-soft-fade var(--duration-cinematic) var(--ease-standard) 200ms both;
+}
+
+.nx-hero-visual {
+  animation: nx-panel-resolve var(--duration-cinematic) var(--ease-enter) 400ms both;
+}
+
+.nx-hero-glow {
+  animation: nx-glow-drift 9000ms var(--ease-standard) 1600ms infinite alternate;
+}
+
+.nx-signal-line {
+  transform-origin: left center;
+  animation: nx-signal-trace 1400ms var(--ease-standard) 700ms both;
+}
+
+.nx-hero-node,
+.nx-service-node,
+.nx-process-step [data-step-number] {
+  animation: nx-node-breathe 5200ms var(--ease-standard) 1600ms infinite;
+}
+
+.nx-hero-panel {
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nx-hero-panel:hover {
+    transform: translate3d(0, -3px, 0);
+    border-color: var(--border-brand);
+    box-shadow: var(--glow-blue-soft);
+  }
+}
+
+@keyframes nx-hero-line-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nx-soft-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nx-panel-resolve {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes nx-signal-trace {
+  from {
+    opacity: 0;
+    transform: scaleX(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes nx-node-breathe {
+  0%,
+  100% {
+    opacity: 0.64;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes nx-glow-drift {
+  from {
+    opacity: 0.56;
+    transform: translate3d(-4px, 2px, 0) scale(0.98);
+  }
+  to {
+    opacity: 0.82;
+    transform: translate3d(6px, -4px, 0) scale(1.02);
+  }
+}
+
+/*
+ * Ambient background field: a whole-page backdrop so the page never reads as
+ * static between sections. Two very low-opacity radial gradients drift
+ * extremely slowly behind all content (fixed, negative z-index, transform-only
+ * animation — GPU composited, no repaint cost). Applied once on the site
+ * layout wrapper; individual section/card backgrounds sit on top of it as
+ * before and are unaffected.
+ */
+.nx-ambient-field {
+  position: relative;
+  isolation: isolate;
+}
+
+.nx-ambient-field::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 45% at 15% 8%, rgba(37, 99, 255, 0.05), transparent 60%),
+    radial-gradient(55% 40% at 88% 78%, rgba(124, 58, 237, 0.045), transparent 60%);
+  animation: nx-ambient-drift 46000ms var(--ease-standard) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes nx-ambient-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(1.4%, -1.4%, 0) scale(1.03);
+  }
+}
+
+/*
+ * Engineering-timeline connector: the horizontal process line traces in from
+ * the left, synced to the same section reveal trigger already used for
+ * cards/headings — no extra JS.
+ */
+.nx-timeline-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 760ms var(--ease-precise) 80ms;
+}
+
+.motion-runtime-ready [data-motion-state="in"] .nx-timeline-line {
+  transform: scaleX(1);
+}
+
+/*
+ * Primary CTA edge sweep: a single soft light sweep along the button border on
+ * hover — desktop/fine-pointer only, restrained, never loops.
+ */
+.nx-cta-primary {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.nx-cta-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.85), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nx-cta-primary:hover::after {
+    animation: nx-cta-sweep 640ms var(--ease-precise) both;
+  }
+}
+
+@keyframes nx-cta-sweep {
+  from {
+    opacity: 0;
+    transform: translateX(-40%);
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40%);
+  }
+}
+
+/*
+ * Mobile nav menu: smooth open/close instead of an instant mount/unmount.
+ * Always rendered; height and opacity are driven by `data-open` so the panel
+ * glides open and closed. `inert` (set in SiteHeader) keeps it out of the tab
+ * order and accessibility tree while collapsed.
+ */
+.nx-mobile-menu {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 320ms var(--ease-standard),
+    opacity 220ms var(--ease-standard);
+}
+
+.nx-mobile-menu[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Form feedback (validation error / success) — small fade, no layout jump. */
+.nx-feedback-fade {
+  animation: nx-feedback-fade-in var(--duration-fast) var(--ease-enter) both;
+}
+
+@keyframes nx-feedback-fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Theme-aware brand logo swap: white ink on dark, dark ink on light. */
+.nx-logo-black {
+  display: none;
+}
+[data-theme="light"] .nx-logo-white {
+  display: none;
+}
+[data-theme="light"] .nx-logo-black {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .motion-runtime-ready [data-motion="section"],
+  .motion-runtime-ready [data-motion-child="heading"],
+  .motion-runtime-ready [data-motion-child="eyebrow"],
+  .motion-runtime-ready [data-motion-child="body"],
+  .motion-runtime-ready [data-motion-card],
+  .nx-hero [data-hero-step],
+  .nx-hero-visual,
+  .nx-hero-bloom,
+  .nx-hero-glow,
+  .nx-signal-line,
+  .nx-hero-node,
+  .nx-service-node,
+  .nx-process-step [data-step-number] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .nx-timeline-line {
+    transform: scaleX(1) !important;
+  }
+
+  .nx-ambient-field::before {
+    animation: none !important;
+  }
+
+  .nx-cta-primary::after {
+    animation: none !important;
+  }
+
+  .nx-mobile-menu {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .nx-hero-glow,
+  .nx-hero-node,
+  .nx-service-node,
+  .nx-process-step [data-step-number],
+  .nx-ambient-field::before {
+    animation: none;
+  }
+
+  .motion-runtime-ready [data-motion="section"],
+  .motion-runtime-ready [data-motion-card] {
+    transform: translate3d(0, 14px, 0);
+  }
+}

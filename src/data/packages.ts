@@ -21,11 +21,11 @@ export const packages = [
       "Brand styling direction",
       "Portfolio or service funnels",
       "SEO and CRO improvements",
-      "WhatsApp and lead CTAs",
+      "Direct enquiry CTAs",
     ],
   },
   {
-    name: "Orbit",
+    name: "System",
     label: "For complete digital systems",
     price: "Custom quote",
     features: [
