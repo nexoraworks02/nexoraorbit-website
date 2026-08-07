@@ -52,23 +52,11 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
       </section>
 
       <section className="scroll-mt-28 py-16 md:py-24">
-        <Container>
-          <GlassPanel className="grid gap-5 p-8 md:p-10">
-            <Badge tone="warning">Editorial Placeholder</Badge>
-            <h2 className="ds-h3 text-[var(--text-primary)]">This is not a final published article yet.</h2>
-            <p className="ds-body-md max-w-3xl text-[var(--text-secondary)]">
-              This is an article structure preview. Replace with final reviewed editorial content before publication.
-            </p>
-          </GlassPanel>
-        </Container>
-      </section>
-
-      <section className="scroll-mt-28 py-16 md:py-24">
         <Container className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
           <SectionHeader
             eyebrow="Key Takeaways"
             title="The article should make practical decisions clearer."
-            description="Final content should turn these takeaways into concise, reviewed editorial guidance."
+            description="A quick summary before the full breakdown below."
           />
           <ListCard title="Takeaways" items={article.takeaways} />
         </Container>
@@ -77,9 +65,9 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
       <section className="scroll-mt-28 py-16 md:py-24">
         <Container className="grid gap-10">
           <SectionHeader
-            eyebrow="Main Content Placeholder"
-            title="Short editorial sections for future review."
-            description="These sections define article shape without pretending final research, publication dates, or author bios exist."
+            eyebrow="In Depth"
+            title="The practical breakdown."
+            description="Each section below expands on one part of the takeaways above."
           />
           <Grid columns={3}>
             {article.sections.map((section) => (
@@ -95,9 +83,9 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
       <section className="scroll-mt-28 py-16 md:py-24">
         <Container className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
           <SectionHeader
-            eyebrow="Practical Examples Placeholder"
-            title="Examples should be useful, not fabricated proof."
-            description="Final articles can add real examples when reviewed and appropriate. This preview only defines example categories."
+            eyebrow="Where This Applies"
+            title="Common workflows this shows up in."
+            description="Real, named examples can be added once approved and appropriate — these are illustrative categories, not fabricated proof."
           />
           <div className="flex flex-wrap gap-3" aria-label="Practical example categories">
             {article.examples.map((example) => (
@@ -130,8 +118,8 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
         <Container className="grid gap-10">
           <SectionHeader
             eyebrow="Related Articles"
-            title="Explore adjacent article structures."
-            description="These are still placeholder structures until reviewed editorial content is approved."
+            title="Explore adjacent topics."
+            description="More practical guides on planning and building digital systems."
           />
           <Grid columns={2}>
             {relatedArticles.map((relatedArticle) => (
@@ -139,7 +127,7 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
                 key={relatedArticle.slug}
                 href={`/insights/${relatedArticle.slug}`}
                 className="ds-focus-ring rounded-[var(--radius-lg)]"
-                aria-label={`Read article structure for ${relatedArticle.title}`}
+                aria-label={`Read ${relatedArticle.title}`}
               >
                 <Card variant="service" className="grid min-h-56 content-between gap-6">
                   <div>
@@ -148,7 +136,7 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
                     <h2 className="ds-h5 mt-3 text-[var(--text-primary)]">{relatedArticle.title}</h2>
                     <p className="ds-body-sm mt-4 text-[var(--text-secondary)]">{relatedArticle.excerpt}</p>
                   </div>
-                  <span className="text-sm font-semibold text-[var(--text-accent)]">View structure</span>
+                  <span className="text-sm font-semibold text-[var(--text-accent)]">Read article</span>
                 </Card>
               </Link>
             ))}

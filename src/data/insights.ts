@@ -55,7 +55,7 @@ export const insightArticles: InsightArticle[] = [
     category: "AI & Automation",
     excerpt:
       "A practical structure for identifying workflow friction, review points, data needs, and implementation risks before investing in AI automation.",
-    status: "Placeholder article structure",
+    status: "Guide",
     description:
       "A practical structure for identifying workflow friction, review points, data needs, and implementation risks before investing in AI automation.",
     takeaways: [
@@ -66,16 +66,20 @@ export const insightArticles: InsightArticle[] = [
     ],
     sections: [
       {
-        title: "Start with the workflow",
-        body: "Final editorial content should explain how to map inputs, decisions, handoffs, and exceptions before choosing tools.",
+        title: "Start with the workflow, not the tool",
+        body: "Most AI projects go sideways because the first question asked is 'which model should we use?' instead of 'what decision are we actually trying to speed up?' Before choosing any tool, map the workflow end to end: what comes in, who currently makes the decision, what information they use to make it, and where the delay actually lives. Often the bottleneck isn't the decision itself — it's finding the information needed to make it. That distinction changes what you should build. If the problem is information scattered across five places, the fix might be a better data pipeline, not a model. If the problem is a genuinely repetitive judgment call made hundreds of times a day, that's where automation earns its cost.",
       },
       {
-        title: "Define oversight",
-        body: "Final editorial content should clarify where humans review, approve, correct, or override automated steps.",
+        title: "Define oversight before you define automation",
+        body: "Decide where a human needs to review, approve, correct, or override an automated step — before you build the automation, not after something goes wrong. In practice this means setting confidence thresholds: cases the system is highly certain about can move automatically, and everything below that threshold routes to a person. This isn't a compromise on 'real' automation — it's what makes teams actually trust and adopt the system. A workflow nobody trusts enough to use isn't saving anyone time, regardless of how capable the underlying model is. Build the review interface as a first-class part of the system, not an afterthought bolted on when someone complains.",
       },
       {
-        title: "Plan implementation risk",
-        body: "Final editorial content should address data quality, adoption, security, cost, and maintenance without unsupported claims.",
+        title: "Plan for data quality, access, and maintenance",
+        body: "An AI workflow is only as reliable as the data feeding it, and data quality problems that were tolerable when a human was doing the work by hand become visible fast once you automate around them. Before implementation, map what data the workflow needs, where it currently lives, who has access to it, and what happens when it's incomplete or wrong. Just as important: plan who owns the system after launch. Someone needs to monitor performance, review edge cases the model handles poorly, and update the workflow as the business changes. A system with no owner degrades quietly until it's doing more harm than the manual process it replaced.",
+      },
+      {
+        title: "Measure workflow quality, not novelty",
+        body: "The right way to evaluate an AI workflow isn't 'does it feel impressive' — it's whether it improves the actual outcomes that mattered before you built it: faster response times, fewer routing errors, less time spent on repetitive triage, more consistent decisions across the team. Track override rates (how often a human corrects the system's suggestion) as a leading indicator of whether your confidence thresholds are calibrated correctly. A high override rate early on isn't a failure — it's data. Use it to adjust the system rather than treating the first version as final.",
       },
     ],
     examples: [
@@ -88,7 +92,7 @@ export const insightArticles: InsightArticle[] = [
     metadata: {
       title: "How to Plan an AI Workflow Before Building It | NEXORA ORBIT",
       description:
-        "A placeholder insight structure for planning AI workflows around friction, review points, data needs, and implementation risk.",
+        "A practical guide to planning AI workflows around real friction points, human review, data readiness, and measurable outcomes.",
     },
   },
   {
@@ -97,7 +101,7 @@ export const insightArticles: InsightArticle[] = [
     category: "Web Development / Digital Growth",
     excerpt:
       "A guide to the structure behind high-trust pages, clear CTAs, forms, service pathways, and measurement-ready user journeys.",
-    status: "Placeholder article structure",
+    status: "Guide",
     description:
       "A guide to the structure behind high-trust pages, clear CTAs, forms, service pathways, and measurement-ready user journeys.",
     takeaways: [
@@ -108,16 +112,20 @@ export const insightArticles: InsightArticle[] = [
     ],
     sections: [
       {
-        title: "Clarify the decision path",
-        body: "Final editorial content should explain how page hierarchy, service navigation, proof, and CTAs support qualified action.",
+        title: "Clarify the decision path before designing the page",
+        body: "A website converts when a visitor can quickly answer three questions: what does this company actually do, is it relevant to my situation, and what should I do next. Most underperforming sites fail on the third question — they present information without a clear next step. Every key page should have one primary action, not three competing ones. Secondary options (read more, view pricing, see examples) should visibly support that primary path, not distract from it. This is a structural decision made before any visual design starts, not something a button color fixes afterward.",
       },
       {
-        title: "Design the enquiry moment",
-        body: "Final editorial content should cover forms, direct contact options, expectation-setting, and privacy language.",
+        title: "Design the enquiry moment carefully",
+        body: "The point where a visitor decides to submit a form or send an email is the highest-friction moment on the entire site — get it wrong and everything upstream was wasted effort. Ask for only what you need to have a useful first conversation, not everything you'll eventually want to know. Set expectations clearly: what happens after they submit, how quickly they'll hear back, what the next step actually looks like. And be explicit about how their information will be used — a short, honest line near the form does more for conversion than people expect, because it removes hesitation at exactly the moment it would otherwise cause someone to abandon the form.",
       },
       {
-        title: "Prepare measurement",
-        body: "Final editorial content should describe analytics foundations without inventing benchmarks or guaranteed outcomes.",
+        title: "Structure service pages around buying stage, not org chart",
+        body: "Visitors arrive at different points in their decision: some are early and exploring options, others already know what they need and are comparing who to hire. A single generic services page trying to serve both audiences usually serves neither well. Structure content so early-stage visitors can quickly understand scope and approach, while ready-to-buy visitors can find pricing signals, process detail, and a direct path to contact without digging. This is an information architecture decision, not a copywriting one — get the structure right first.",
+      },
+      {
+        title: "Set up measurement before you optimize anything",
+        body: "You can't improve what you aren't measuring, and retrofitting analytics after launch means losing the most valuable data — how visitors behaved on the very first version of the site. Before launch, decide what you'll actually track: which pages get views, where visitors drop off before reaching a CTA, how many form starts convert to submissions. Resist the temptation to track everything vaguely; track the handful of events that would actually change what you build next. The goal isn't a dashboard full of numbers — it's a small set of signals that tell you where the real friction is.",
       },
     ],
     examples: ["Service page CTA path", "Project enquiry form", "Case study pathway", "Measurement-ready landing page"],
@@ -125,7 +133,7 @@ export const insightArticles: InsightArticle[] = [
     metadata: {
       title: "What Makes a Website Conversion-Ready | NEXORA ORBIT",
       description:
-        "A placeholder insight structure about high-trust page structure, clear CTAs, forms, service pathways, and measurement-ready journeys.",
+        "A practical guide to high-trust page structure, clear CTAs, forms, service pathways, and measurement-ready user journeys.",
     },
   },
   {
@@ -134,7 +142,7 @@ export const insightArticles: InsightArticle[] = [
     category: "Cloud & Infrastructure",
     excerpt:
       "How infrastructure decisions influence reliability, release confidence, scalability, cost control, and product momentum.",
-    status: "Placeholder article structure",
+    status: "Guide",
     description:
       "How infrastructure decisions influence reliability, release confidence, scalability, cost control, and product momentum.",
     takeaways: [
@@ -145,16 +153,20 @@ export const insightArticles: InsightArticle[] = [
     ],
     sections: [
       {
-        title: "Reliability supports momentum",
-        body: "Final editorial content should explain how deployment, monitoring, and recovery choices affect product confidence.",
+        title: "Reliability is what lets a team move fast",
+        body: "Teams with confidence in their deployment and rollback process ship more often, because a bad release is a minor incident instead of a crisis. That confidence isn't luck — it comes from specific infrastructure decisions: automated deployments instead of manual steps, monitoring that surfaces problems before customers report them, and a rollback path that's actually been tested, not just assumed to work. Teams without this foundation slow down over time, not because they got worse at building features, but because every release carries more risk than it should, so they ship less often out of caution.",
       },
       {
-        title: "Scalability needs ownership",
-        body: "Final editorial content should connect architecture decisions to team handoff, documentation, and maintenance.",
+        title: "Scalability has to be a decision, not a scramble",
+        body: "Scalability problems rarely announce themselves early — a system works fine at low volume and then degrades suddenly once usage crosses some threshold nobody planned around. Good architecture anticipates this: database queries that stay fast as data grows, caching applied where it actually matters instead of everywhere, and a clear separation between the parts of the system likely to need independent scaling. None of this means over-engineering for scale you don't have yet — it means making decisions that don't actively work against you when growth does arrive, which is a very different thing from building for a hypothetical million users on day one.",
       },
       {
-        title: "Cost needs visibility",
-        body: "Final editorial content should discuss cost awareness and operational review without making unverified savings claims.",
+        title: "Cost control needs visibility, not just discipline",
+        body: "Cloud costs tend to grow quietly — a resource provisioned for a launch that never got cleaned up, a service scaled for a traffic spike that never got scaled back down. The fix isn't willpower, it's visibility: infrastructure organized so cost can actually be attributed to the part of the product driving it, and a regular review habit instead of an annual surprise when the bill arrives. This is much easier to build in from the start than to retrofit onto a system where everything already shares the same undifferentiated infrastructure.",
+      },
+      {
+        title: "Growth depends on systems a team can actually maintain",
+        body: "The most sophisticated architecture is a liability if the team responsible for it doesn't understand how it works or why it was built that way. Documentation, sensible defaults, and infrastructure that follows familiar patterns instead of clever-but-obscure ones all matter more than they get credit for. A system that's slightly less elegant but fully understood by the team maintaining it will outperform a more sophisticated one that only the original builder can safely touch — because growth requires the team to keep improving the system long after the initial build is done.",
       },
     ],
     examples: ["Deployment planning", "Cloud cost review", "Monitoring and recovery model", "Scalable platform roadmap"],
@@ -162,7 +174,7 @@ export const insightArticles: InsightArticle[] = [
     metadata: {
       title: "Why Cloud Architecture Affects Product Growth | NEXORA ORBIT",
       description:
-        "A placeholder insight structure about cloud architecture, reliability, scalability, cost control, and product momentum.",
+        "A practical guide to how infrastructure decisions shape reliability, scalability, cost control, and product momentum.",
     },
   },
 ];

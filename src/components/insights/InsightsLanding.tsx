@@ -42,12 +42,12 @@ export function InsightsLanding() {
           <SectionHeader
             eyebrow="Featured Insight"
             title="Start with the decision behind the technology."
-            description="Featured insights remain placeholder structures until reviewed editorial content is approved."
+            description="A practical guide worth starting with."
           />
           <Link
             href={`/insights/${featuredArticle.slug}`}
             className="ds-focus-ring rounded-[var(--radius-lg)]"
-            aria-label={`Read article structure for ${featuredArticle.title}`}
+            aria-label={`Read ${featuredArticle.title}`}
           >
             <Card variant="service" className="grid gap-6 lg:grid-cols-[0.45fr_0.55fr] lg:items-center">
               <EditorialVisual className="min-h-52" />
@@ -57,10 +57,7 @@ export function InsightsLanding() {
                   <h2 className="ds-h4 mt-5 text-[var(--text-primary)]">{featuredArticle.title}</h2>
                   <p className="ds-body-md mt-4 text-[var(--text-secondary)]">{featuredArticle.excerpt}</p>
                 </div>
-                <p className="rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                  This is an article structure preview. Replace with final reviewed editorial content before publication.
-                </p>
-                <span className="text-sm font-semibold text-[var(--text-accent)]">View article structure</span>
+                <span className="text-sm font-semibold text-[var(--text-accent)]">Read article</span>
               </div>
             </Card>
           </Link>
@@ -88,8 +85,8 @@ export function InsightsLanding() {
         <Container className="grid gap-10">
           <SectionHeader
             eyebrow="Article Grid"
-            title="Placeholder article structures ready for editorial review."
-            description="These previews define topic direction, related services, and article architecture without fake authors, dates, statistics, or unsupported claims."
+            title="Practical guides for planning digital systems."
+            description="These articles define topic direction and related services without fake authors, dates, statistics, or unsupported claims."
           />
           <Grid columns={3}>
             {insightArticles.map((article) => (
@@ -97,7 +94,7 @@ export function InsightsLanding() {
                 key={article.slug}
                 href={`/insights/${article.slug}`}
                 className="ds-focus-ring rounded-[var(--radius-lg)]"
-                aria-label={`Read article structure for ${article.title}`}
+                aria-label={`Read ${article.title}`}
               >
                 <Card variant="service" className="grid min-h-full gap-6">
                   <EditorialVisual className="min-h-44" />
@@ -107,10 +104,7 @@ export function InsightsLanding() {
                     <h2 className="ds-h5 mt-3 text-[var(--text-primary)]">{article.title}</h2>
                     <p className="ds-body-sm mt-4 text-[var(--text-secondary)]">{article.excerpt}</p>
                   </div>
-                  <p className="rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                    This is an article structure preview. Replace with final reviewed editorial content before publication.
-                  </p>
-                  <span className="text-sm font-semibold text-[var(--text-accent)]">View structure</span>
+                  <span className="text-sm font-semibold text-[var(--text-accent)]">Read article</span>
                 </Card>
               </Link>
             ))}

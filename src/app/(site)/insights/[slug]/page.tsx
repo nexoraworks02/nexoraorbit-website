@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: InsightPageProps): Promise<Me
     description: article.metadata.description,
     path: `/insights/${article.slug}`,
     type: "article",
-    index: false,
   });
 }
 

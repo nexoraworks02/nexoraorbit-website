@@ -19,10 +19,10 @@ export function CaseStudiesIndex() {
         <Container className="relative">
           <Badge tone="brand">Case Studies</Badge>
           <h1 className="ds-display-md mt-5 max-w-5xl text-[var(--text-primary)]">
-            Case study structures built around context, decisions, execution, and proof.
+            Illustrative examples built around context, decisions, execution, and proof.
           </h1>
           <p className="ds-body-lg mt-6 max-w-3xl text-[var(--text-secondary)]">
-            This index prepares the case study system for approved work. It does not claim client outcomes, publish
+            This index shows how the case study system presents approved work. It does not claim client outcomes, publish
             private details, or use fabricated social proof.
           </p>
         </Container>
@@ -52,7 +52,7 @@ export function CaseStudiesIndex() {
                       <p className="ds-body-md mt-4 text-[var(--text-secondary)]">{project.problem}</p>
                     </div>
                     <p className="rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                      This is a case study structure preview. Replace with approved project details, client permission, real visuals, and verified outcomes before public launch.
+                      This is an illustrative example, not a completed client engagement. It will be replaced with approved project details, client permission, and verified outcomes once available.
                     </p>
                     <span className="text-sm font-semibold text-[var(--text-accent)]">{project.cta}</span>
                   </div>

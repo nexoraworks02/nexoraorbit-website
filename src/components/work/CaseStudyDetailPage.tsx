@@ -53,10 +53,10 @@ export function CaseStudyDetailPage({ project }: { project: WorkProject }) {
       <section className="scroll-mt-28 py-16 md:py-24">
         <Container>
           <GlassPanel className="grid gap-5 p-8 md:p-10">
-            <Badge tone="warning">Client / Context Placeholder</Badge>
-            <h2 className="ds-h3 text-[var(--text-primary)]">This is not a published client case study yet.</h2>
+            <Badge tone="warning">Illustrative Example</Badge>
+            <h2 className="ds-h3 text-[var(--text-primary)]">This is an illustrative example, not a completed client engagement.</h2>
             <p className="ds-body-md max-w-3xl text-[var(--text-secondary)]">
-              This is a case study structure preview. Replace with approved project details, client permission, real visuals, and verified outcomes before public launch.
+              It shows how NEXORA ORBIT approaches this kind of project. It will be replaced with a real, approved case study — with client permission, real visuals, and verified outcomes — once one is available.
             </p>
           </GlassPanel>
         </Container>
@@ -142,8 +142,8 @@ export function CaseStudyDetailPage({ project }: { project: WorkProject }) {
         <Container className="grid gap-10">
           <SectionHeader
             eyebrow="Related Work"
-            title="Explore adjacent case study structures."
-            description="These related structures remain placeholders until approved project material is available."
+            title="Explore adjacent illustrative examples."
+            description="These are illustrative examples until real, approved project material is available to replace them."
           />
           <Grid columns={2}>
             {relatedProjects.map((item) => (
@@ -151,7 +151,7 @@ export function CaseStudyDetailPage({ project }: { project: WorkProject }) {
                 key={item.slug}
                 href={`/work/${item.slug}`}
                 className="ds-focus-ring rounded-[var(--radius-lg)]"
-                aria-label={`View ${item.title} case study structure`}
+                aria-label={`View ${item.title} illustrative example`}
               >
                 <Card variant="service" className="grid min-h-56 content-between gap-6">
                   <div>
@@ -159,10 +159,10 @@ export function CaseStudyDetailPage({ project }: { project: WorkProject }) {
                     <h2 className="ds-h5 mt-5 text-[var(--text-primary)]">{item.title}</h2>
                     <p className="ds-body-sm mt-4 text-[var(--text-secondary)]">{item.problem}</p>
                     <p className="mt-5 rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                      This is a case study structure preview. Replace with approved project details, client permission, real visuals, and verified outcomes before public launch.
+                      This is an illustrative example, not a completed client engagement. It will be replaced with approved project details, client permission, and verified outcomes once available.
                     </p>
                   </div>
-                  <span className="text-sm font-semibold text-[var(--text-accent)]">View structure</span>
+                  <span className="text-sm font-semibold text-[var(--text-accent)]">View example</span>
                 </Card>
               </Link>
             ))}

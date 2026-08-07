@@ -3,17 +3,17 @@ import { termsSections } from "@/data/legalUtility";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Terms — NEXORA ORBIT",
-  description: "General website terms for using NEXORA ORBIT digital properties and reviewing service information.",
+  title: "Terms of Use — NEXORA ORBIT",
+  description: "Terms of use for the NEXORA ORBIT website, covering website use, service descriptions, and liability.",
   path: "/terms",
 });
 
 export default function TermsPage() {
   return (
     <LegalPage
-      eyebrow="Terms"
-      title="Website terms for using NEXORA ORBIT digital properties."
-      body="These terms describe general website use and should be reviewed before publication or client-facing legal use."
+      eyebrow="Terms of Use"
+      title="Terms for using the NEXORA ORBIT website."
+      body="These terms govern your use of this website. Any actual project engagement is governed separately by its own written agreement."
       sections={termsSections}
     />
   );

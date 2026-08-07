@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { serviceDetails } from "@/data/nexoraServices";
+import { insightArticles } from "@/data/insights";
 import { absoluteUrl } from "@/lib/seo";
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
   "/company/careers",
   "/faq",
   "/insights",
+  ...insightArticles.map((article) => `/insights/${article.slug}`),
   "/contact",
   "/privacy-policy",
   "/terms",

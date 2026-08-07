@@ -21,14 +21,14 @@ export function WorkLanding() {
           <div>
             <Badge tone="brand">Work</Badge>
             <h1 className="ds-display-md mt-5 max-w-5xl text-[var(--text-primary)]">
-              Structured previews for intelligent digital systems.
+              Illustrative examples for intelligent digital systems.
             </h1>
             <p className="ds-body-lg mt-6 max-w-3xl text-[var(--text-secondary)]">
               NEXORA ORBIT presents work through context, decisions, execution, and verified outcomes. Until approved
-              projects are ready for publication, this section uses transparent case study structures only.
+              client projects are ready for publication, this section uses transparent illustrative examples only.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <WorkCtaLink href="/work/case-studies">Explore Case Study Structures</WorkCtaLink>
+              <WorkCtaLink href="/work/case-studies">Explore Illustrative Examples</WorkCtaLink>
               <WorkCtaLink href="/contact" variant="glass">
                 Book a Consultation
               </WorkCtaLink>
@@ -48,8 +48,8 @@ export function WorkLanding() {
       <section className="scroll-mt-28 py-16 md:py-24">
         <Container className="grid gap-10">
           <SectionHeader
-            eyebrow="Featured Previews"
-            title="Case study structures without fabricated proof."
+            eyebrow="Featured Examples"
+            title="Illustrative examples without fabricated proof."
             description="These cards show the kinds of systems NEXORA ORBIT is built to deliver. Real client details, visuals, metrics, and quotes are added only after approval."
           />
           <Grid columns={3}>
@@ -68,7 +68,7 @@ export function WorkLanding() {
                     <p className="ds-body-sm mt-4 text-[var(--text-secondary)]">{project.problem}</p>
                   </div>
                   <p className="rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                    This is a case study structure preview. Replace with approved project details, client permission, real visuals, and verified outcomes before public launch.
+                    This is an illustrative example, not a completed client engagement. It will be replaced with approved project details, client permission, and verified outcomes once available.
                   </p>
                   <span className="text-sm font-semibold text-[var(--text-accent)]">{project.cta}</span>
                 </Card>
@@ -109,13 +109,13 @@ export function WorkLanding() {
                 <h2 className="ds-h5 text-[var(--text-primary)]">{project.title}</h2>
                 <p className="ds-body-sm text-[var(--text-secondary)]">{project.context}</p>
                 <p className="rounded-[var(--radius-sm)] border border-[var(--border-subtle)] bg-[var(--surface-panel)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                  This is a case study structure preview. Replace with approved project details, client permission, real visuals, and verified outcomes before public launch.
+                  This is an illustrative example, not a completed client engagement. It will be replaced with approved project details, client permission, and verified outcomes once available.
                 </p>
                 <Link
                   href={`/work/${project.slug}`}
                   className="ds-focus-ring rounded-[var(--radius-sm)] text-sm font-semibold text-[var(--text-accent)]"
                 >
-                  View structure
+                  View example
                 </Link>
               </Card>
             ))}

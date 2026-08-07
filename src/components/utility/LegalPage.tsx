@@ -67,11 +67,10 @@ export function LegalPage({
         <Container>
           <Card variant="glass" className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <p className="ds-meta text-[var(--text-muted)]">Need clarity before launch?</p>
-              <h2 className="ds-heading-2 mt-3 text-[var(--text-primary)]">Review the legal flow before publishing.</h2>
+              <p className="ds-meta text-[var(--text-muted)]">Questions about either policy?</p>
+              <h2 className="ds-heading-2 mt-3 text-[var(--text-primary)]">We&apos;re glad to clarify anything here.</h2>
               <p className="ds-body mt-4 text-[var(--text-secondary)]">
-                These pages are structured for implementation and review. Final legal wording should be approved before
-                public reliance.
+                Reach out directly, or get in touch about a project.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">
